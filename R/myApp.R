@@ -37,6 +37,8 @@ CustomApplicationExample <- setRefClass(
 						  verbose(), content_type("text/xml"))
 
 
+			print(test1)			  
+						  
 			parsed <- htmlParse(test1)
 			js <- xpathSApply(parsed, "//session_encoding", xmlValue)
 			print(js)

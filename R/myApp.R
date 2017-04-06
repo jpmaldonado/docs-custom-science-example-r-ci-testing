@@ -66,7 +66,7 @@ CustomApplicationExample <- setRefClass(
 
 
 			attempts <- 2
-			delay <- 100
+			delay <- 20
 			attempt <- 1
 			test2 <- NULL
 
@@ -88,11 +88,11 @@ CustomApplicationExample <- setRefClass(
 			nodes <- getNodeSet(xml_data, "//Mailing")
 
 			## Final data frame
-			data <- xmlToDataFrame(nodes)
-			print(names(data))
+			final_data <- xmlToDataFrame(nodes)
+			print(head(final_data))
 			print('hi')
 			## You can save this in KBC using
-			write.csv(data, "out/tables/aggregate.csv", row.names = F, quote = F)
+			write.csv(final_data, "out/tables/aggregate.csv", row.names = F, quote = F)
         }
     )
 )

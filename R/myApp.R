@@ -13,17 +13,7 @@ CustomApplicationExample <- setRefClass(
 
             # intialize application
             readConfig()
-
-            # read input
-            #data <- read.csv(file = file.path(dataDir, "in/tables/source.csv"));
-
-            # do something clever
-            #data['double_number'] <- data['number'] * getParameters()$multiplier
-
-            # write output
-            #write.csv(data, file = file.path(dataDir, "out/tables/result.csv"), row.names = FALSE)
-			
-			
+	
 			# Authentication request
 			library(RCurl)
 			library(httr)
@@ -31,8 +21,8 @@ CustomApplicationExample <- setRefClass(
 			apiURL <- getParameters()$apiURL
 			UserName <- app$getParameters()$UserName
 			PassWord <- app$getParameters()$PassWord
-			
-			# Authentication request
+						
+						# Authentication request
 			body1 <- "<Envelope><Body>
 			<Login>
 			<USERNAME>UserName</USERNAME>
@@ -50,40 +40,27 @@ CustomApplicationExample <- setRefClass(
 			parsed <- htmlParse(test1)
 			js <- xpathSApply(parsed, "//session_encoding", xmlValue)
 
+
 			#Gather sessionid for future requests
 			jsessionid <- gsub(";","?",js)
 
 
-			## Date parameters: COULD WE PASS DATE PARAMETERS FROM THE ORCHESTRATION LAYER?
-			body2 <- "<Envelope><Body>           
-			<GetAggregateTrackingForOrg>
-			<DATE_START>09/12/2016 00:00:00</DATE_START>              
-			<DATE_END>12/31/2017 23:59:59</DATE_END> 
-			</GetAggregateTrackingForOrg>       
-			</Body> </Envelope> "
+			body2 <- "<Envelope>
+						<Body>           
+						  <GetAggregateTrackingForOrg>
+							<DATE_START>09/12/2016 00:00:00</DATE_START>              
+							<DATE_END>01/01/2020 23:59:59</DATE_END> 
+						  </GetAggregateTrackingForOrg>       
+						</Body> 
+					  </Envelope> "
 
-
-
-
-			attempts <- 2
-			delay <- 20
-			attempt <- 1
-			test2 <- NULL
-
-			while(is.null(test2) && attempt <= attempts ) {
-			  attempt <- attempt + 1
-			  Sys.sleep(delay)
-			  try(
-				
-				test2 <- POST(url = paste(apiURL,jsessionid,sep=""), body = body2, 
+			test2 <- POST(url = paste(apiURL,jsessionid,sep=""), body = body2, 
 							  verbose(),
 							  content_type("text/xml"))
 				
-			  )
-			} 
 
 			xml_data <- xmlParse(test2)
-			
+
 			print(test2)
 
 			## 

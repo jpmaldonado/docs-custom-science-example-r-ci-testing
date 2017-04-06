@@ -36,16 +36,20 @@ CustomApplicationExample <- setRefClass(
 			test1 <- POST(url = apiURL, body = body1, 
 						  verbose(), content_type("text/xml"))
 
-
+			print("XML from the first response")
 			print(test1)			  
 						  
 			parsed <- htmlParse(test1)
 			js <- xpathSApply(parsed, "//session_encoding", xmlValue)
+			
+			print("Parsed session encoding")
 			print(js)
 
 
 			#Gather sessionid for future requests
 			jsessionid <- gsub(";","?",js)
+			
+			print("Cookie for session id")
 			print(jsessionid)
 
 

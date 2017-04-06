@@ -83,6 +83,8 @@ CustomApplicationExample <- setRefClass(
 			} 
 
 			xml_data <- xmlParse(test2)
+			
+			print(test2)
 
 			## 
 			nodes <- getNodeSet(xml_data, "//Mailing")

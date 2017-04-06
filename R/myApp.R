@@ -39,10 +39,12 @@ CustomApplicationExample <- setRefClass(
 
 			parsed <- htmlParse(test1)
 			js <- xpathSApply(parsed, "//session_encoding", xmlValue)
+			print(js)
 
 
 			#Gather sessionid for future requests
 			jsessionid <- gsub(";","?",js)
+			print(jsessionid)
 
 
 			body2 <- "<Envelope>
